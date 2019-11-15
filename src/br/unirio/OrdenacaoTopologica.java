@@ -109,7 +109,6 @@ public class OrdenacaoTopologica
 	
 	private void insereNaLista(int numeroAInserir) 
 	{
-		
 		if(prim != null) 
 		{
 			Elo p;
