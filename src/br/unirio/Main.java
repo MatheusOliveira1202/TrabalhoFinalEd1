@@ -6,7 +6,7 @@ public class Main
 	{
 		OrdenacaoTopologica ord = new OrdenacaoTopologica();
 		
-		String nomeEntrada = "C:\\\\Users\\\\T-Gamer\\\\Documents\\\\Projetos\\\\Programming Projects\\\\Eclipse Projects\\\\Unirio Projects\\\\ED1\\\\TrabalhoFinalEd\\\\src\\\\br\\\\unirio\\\\entrada.txt";
+		String nomeEntrada = "C:\\Users\\T-Gamer\\Documents\\Projetos\\Programming Projects\\Eclipse Projects\\Unirio Projects\\ED1\\TrabalhoFinalEd1\\src\\br\\unirio\\entrada.txt";
 		
 		ord.realizaLeitura(nomeEntrada);
 

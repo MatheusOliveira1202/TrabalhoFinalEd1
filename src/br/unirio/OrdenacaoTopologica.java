@@ -110,21 +110,22 @@ public class OrdenacaoTopologica
 	private void insereNaLista(int numeroAInserir) 
 	{
 		
-		/*
-		Elo p = prim;
-		
-		if()
-		
-		*/
-		Elo p;
-		
-		for(p = prim; p != null; p = p.prox)
+		if(prim != null) 
 		{
-			if(p.prox == null)
+			Elo p;
+			for(p = prim; p != null; p = p.prox)
 			{
-				p.prox = new Elo(numeroAInserir, n, null, null);
-				n += 1;
+				if(p.prox == null)
+				{
+					p.prox = new Elo(numeroAInserir, n, null, null);
+					n += 1;
+				}
 			}
+		}
+		else
+		{
+			prim = new Elo(numeroAInserir, n, null, null);
+			n += 1;
 		}
 	}
 	
