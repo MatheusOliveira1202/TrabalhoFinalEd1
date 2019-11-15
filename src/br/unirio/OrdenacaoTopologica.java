@@ -90,20 +90,43 @@ public class OrdenacaoTopologica
 				//System.out.println(aux.indexOf("<") -1);
 				x = Integer.parseInt(linha.substring(0, linha.indexOf("<")));
 				y = Integer.parseInt(linha.substring(linha.indexOf("<") + 1));
-				if(!existeNaLista(x))
-				{
-					insereNaLista(x);
-				}
-				if(!existeNaLista(y))
-				{
-					insereNaLista(y);
-				}
-				System.out.println(x + "||" + y);
+				//System.out.println("testing");
+				//imprimeLista();
+				
+				verificaPar(x,y);
+				
+				
+				//imprimeLista();
+				//System.out.println(x + "||" + y);
 			}
+			//imprimeLista();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void verificaPar(int x, int y) {
+		
+		if(!existeNaLista(x))
+		{
+			insereNaLista(x);
+			//imprimeLista();
+		}
+		if(!existeNaLista(y))
+		{
+			insereNaLista(y);
+			//imprimeLista();
+		}
+	}
+	
+	public void imprimeLista() 
+	{
+		Elo p;
+		for(p = prim; p != null; p = p.prox)
+		{
+			System.out.print(p.chave + ";");
 		}
 	}
 	
@@ -118,6 +141,7 @@ public class OrdenacaoTopologica
 				{
 					p.prox = new Elo(numeroAInserir, n, null, null);
 					n += 1;
+					break;
 				}
 			}
 		}

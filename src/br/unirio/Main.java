@@ -10,9 +10,16 @@ public class Main
 		
 		ord.realizaLeitura(nomeEntrada);
 
+		ord.imprimeLista();
+		
+		System.out.println();
+		System.out.println();
+		
+		/*
 		if(!ord.executa())
 			System.out.println("O conjunto nao é parcialmente ordenado.");
 		else
 			System.out.println("O conjunto é parcialmente ordenado.");
+		*/
 	}
 }
