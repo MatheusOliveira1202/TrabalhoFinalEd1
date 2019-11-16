@@ -135,6 +135,7 @@ public class OrdenacaoTopologica
 			eloY.contador += 1;
 			EloSuc antigo = eloX.listaSuc;
 			eloX.listaSuc = new EloSuc(eloY, antigo);
+			debug(eloX);
 		}
 	}
 	
@@ -196,9 +197,24 @@ public class OrdenacaoTopologica
 	}
 	
 	/* Método para impressão do estado atual da estrutura de dados. */
-	private void debug()
+	private void debug(Elo elo)
 	{
 		/* Preencher. */
+		String sucessores = "";
+		EloSuc p = elo.listaSuc;
+		if(elo.listaSuc != null)
+		{
+			for(p = elo.listaSuc; p != null; p = p.prox) 
+			{
+				sucessores += p.id.chave + " -> ";
+			}
+			sucessores += "NULL";
+		}
+		else 
+		{
+			sucessores = null;
+		}
+		System.out.println(elo.chave + " predecessores: " + elo.contador + ", sucessores : " + sucessores);
 	}
 	
 	/* Método responsável por executar o algoritmo. */
