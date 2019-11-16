@@ -10,7 +10,7 @@ public class Main
 		
 		ord.realizaLeitura(nomeEntrada);
 
-		ord.imprimeLista();
+		//ord.imprimeLista();
 		
 		System.out.println();
 		System.out.println();

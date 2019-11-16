@@ -75,29 +75,26 @@ public class OrdenacaoTopologica
 	/* Método responsável pela leitura do arquivo de entrada. */
 	public void realizaLeitura(String nomeEntrada)
 	{
-		/* Preencher. */
+		//cria as int's que iram receber os numeros que estão no documento
 		int x, y;
 		
+		//lógica de leitura de arquivo
 		File file = new File(nomeEntrada);
 		FileReader fr = null;
 		try {
 			fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 			String textoDoDocumento = null, linha;
+			//a cada linha lida ele executa o código abaixo
 			while((linha = br.readLine()) != null){
 				textoDoDocumento += "\n" + linha;
+				//limpa os espaços vazios da linha, por exemplo de "1 < 2" pra "1<2"
 				linha = linha.replaceAll(" ", "");
-				//System.out.println(aux.indexOf("<") -1);
+				//pega os valores de 'x' e 'y' no arquivo de texto e converte para int
 				x = Integer.parseInt(linha.substring(0, linha.indexOf("<")));
 				y = Integer.parseInt(linha.substring(linha.indexOf("<") + 1));
-				//System.out.println("testing");
-				//imprimeLista();
-				
+				//faz a verificação dos elementos do par para ver se existem na lista e adicionarem na lista se ainda não existirem
 				verificaPar(x,y);
-				
-				
-				//imprimeLista();
-				//System.out.println(x + "||" + y);
 			}
 			//imprimeLista();
 		} catch (FileNotFoundException e) {
@@ -105,40 +102,52 @@ public class OrdenacaoTopologica
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		//depois que já criou a lista inteira, lê a lista e faz o debug de cada nó
+		Elo p;
+		for(p = prim; p != null; p = p.prox) 
+		{
+			debug(p);
+		}
 	}
 	
+	//faz a verificação do par
 	private void verificaPar(int x, int y) 
 	{	
+		//verifica se existe 'x' na lista e se não existe ele chama o método de adicionar que adiciona no final da lista
 		if(!existeNaLista(x))
 		{
 			insereNaLista(x);
-			//imprimeLista();
 		}
+		//verifica se existe 'y' na lista e se não existe ele chama o método de adicionar que adiciona no final da lista
 		if(!existeNaLista(y))
 		{
 			insereNaLista(y);
-			//imprimeLista();
 		}
 		
+		//cria a referencia dos elos 'x' e 'y'
 		Elo eloX;
 		Elo eloY;
 		
+		//inicializa os elos fazendo uma busca por chave com as chaves que foram passadas no métodos
 		eloX = buscaEloPorChave(x);
 		eloY = buscaEloPorChave(y);
 		
+		//se o eloX não tiver uma lista de sucessores ele cria uma lista de sucessores sendo o primeiro sucessor o elemento 'y'
 		if(eloX.listaSuc == null)
 		{
 			eloX.listaSuc = new EloSuc(eloY, null);
 		}
+		//se ele já tiver uma lista de sucessores ele apenas adiciona o 'y' na sua lista de sucessores
 		else
 		{
-			eloY.contador += 1;
 			EloSuc antigo = eloX.listaSuc;
 			eloX.listaSuc = new EloSuc(eloY, antigo);
-			debug(eloX);
+			eloY.contador += 1;
 		}
 	}
 	
+	//método que percorre a lista e busca um elemento da lista pelo valor da chave que é dado
 	private Elo buscaEloPorChave(int chaveASerBuscada) 
 	{
 		Elo p;
@@ -152,17 +161,11 @@ public class OrdenacaoTopologica
 		return null;
 	}
 	
-	public void imprimeLista() 
-	{
-		Elo p;
-		for(p = prim; p != null; p = p.prox)
-		{
-			System.out.print(p.chave + ";");
-		}
-	}
-	
+	//método para inserir a lista o elemento
 	private void insereNaLista(int numeroAInserir) 
 	{
+		/*se a lista não está vazia ele vai percorrer a lista e vai adicionar o elemento no final da lista, adicionando o elemento quando
+		é checado o último elemento, e adicionamos um valor à 'n'*/
 		if(prim != null) 
 		{
 			Elo p;
@@ -176,6 +179,7 @@ public class OrdenacaoTopologica
 				}
 			}
 		}
+		//caso a lista esteja vazia ele adiciona o elemento na primeira posição da lista e adiciona um valor à 'n' também
 		else
 		{
 			prim = new Elo(numeroAInserir, 0, null, null);
@@ -183,6 +187,7 @@ public class OrdenacaoTopologica
 		}
 	}
 	
+	/*método para verificar se existe um elo na lista fazendo a busca através da chave*/
 	private boolean existeNaLista(int numeroASerVerificado) 
 	{
 		Elo p;
@@ -196,12 +201,14 @@ public class OrdenacaoTopologica
 		return false;
 	}
 	
-	/* Método para impressão do estado atual da estrutura de dados. */
+	// Método para impressão do estado atual da estrutura de dados. 
 	private void debug(Elo elo)
 	{
-		/* Preencher. */
+		//string para guardar o valor dos sucessores que aserá adicionado no final do print line
 		String sucessores = "";
+		//EloSuc para verificar a lista de sucessores do elo que foi passado para o método
 		EloSuc p = elo.listaSuc;
+		//se a lista de sucessores já existir e não for nula, ele percorre toda a lista de sucessores e vai somando na string 
 		if(elo.listaSuc != null)
 		{
 			for(p = elo.listaSuc; p != null; p = p.prox) 
@@ -210,10 +217,12 @@ public class OrdenacaoTopologica
 			}
 			sucessores += "NULL";
 		}
+		//caso a lista de sucessores seja nula, o valor da variável será nulo para que que não retorne nenhum valor nessa string 
 		else 
 		{
-			sucessores = null;
+			sucessores = "NULL";
 		}
+		//faz o print line do elo com as informações necessárias e a string de sucessores que foi montada acima
 		System.out.println(elo.chave + " predecessores: " + elo.contador + ", sucessores : " + sucessores);
 	}
 	
