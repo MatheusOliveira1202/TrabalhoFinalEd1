@@ -107,8 +107,8 @@ public class OrdenacaoTopologica
 		}
 	}
 	
-	private void verificaPar(int x, int y) {
-		
+	private void verificaPar(int x, int y) 
+	{	
 		if(!existeNaLista(x))
 		{
 			insereNaLista(x);
@@ -119,6 +119,36 @@ public class OrdenacaoTopologica
 			insereNaLista(y);
 			//imprimeLista();
 		}
+		
+		Elo eloX;
+		Elo eloY;
+		
+		eloX = buscaEloPorChave(x);
+		eloY = buscaEloPorChave(y);
+		
+		if(eloX.listaSuc == null)
+		{
+			eloX.listaSuc = new EloSuc(eloY, null);
+		}
+		else
+		{
+			eloY.contador += 1;
+			EloSuc antigo = eloX.listaSuc;
+			eloX.listaSuc = new EloSuc(eloY, antigo);
+		}
+	}
+	
+	private Elo buscaEloPorChave(int chaveASerBuscada) 
+	{
+		Elo p;
+		for(p = prim; p != null; p = p.prox) 
+		{
+			if(p.chave == chaveASerBuscada) 
+			{
+				return p;
+			}
+		}
+		return null;
 	}
 	
 	public void imprimeLista() 
@@ -139,7 +169,7 @@ public class OrdenacaoTopologica
 			{
 				if(p.prox == null)
 				{
-					p.prox = new Elo(numeroAInserir, n, null, null);
+					p.prox = new Elo(numeroAInserir, p.contador, null, null);
 					n += 1;
 					break;
 				}
@@ -147,7 +177,7 @@ public class OrdenacaoTopologica
 		}
 		else
 		{
-			prim = new Elo(numeroAInserir, n, null, null);
+			prim = new Elo(numeroAInserir, 0, null, null);
 			n += 1;
 		}
 	}
