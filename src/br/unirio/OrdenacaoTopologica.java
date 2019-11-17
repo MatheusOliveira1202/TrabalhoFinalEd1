@@ -133,12 +133,15 @@ public class OrdenacaoTopologica
 		eloX = buscaEloPorChave(x);
 		eloY = buscaEloPorChave(y);
 		
-		//se o eloX não tiver uma lista de sucessores ele cria uma lista de sucessores sendo o primeiro sucessor o elemento 'y'
+		/*se o eloX não tiver uma lista de sucessores ele cria uma lista de sucessores sendo o primeiro sucessor o elemento
+		 *  'y' e incrementa o contador de y*/
 		if(eloX.listaSuc == null)
 		{
 			eloX.listaSuc = new EloSuc(eloY, null);
+			eloY.contador += 1;
 		}
-		//se ele já tiver uma lista de sucessores ele apenas adiciona o 'y' na sua lista de sucessores
+		/*se ele já tiver uma lista de sucessores ele apenas adiciona o 'y' na sua lista de sucessores e incrementa o
+		 * contador de 'y'*/
 		else
 		{
 			EloSuc antigo = eloX.listaSuc;
@@ -165,7 +168,8 @@ public class OrdenacaoTopologica
 	private void insereNaLista(int numeroAInserir) 
 	{
 		/*se a lista não está vazia ele vai percorrer a lista e vai adicionar o elemento no final da lista, adicionando o elemento quando
-		é checado o último elemento, e adicionamos um valor à 'n'*/
+		é checado o último elemento, adicionamos um valor à 'n' e passamos um contador zerado pois está sendo adicionado 
+		agora*/
 		if(prim != null) 
 		{
 			Elo p;
@@ -173,13 +177,14 @@ public class OrdenacaoTopologica
 			{
 				if(p.prox == null)
 				{
-					p.prox = new Elo(numeroAInserir, p.contador, null, null);
+					p.prox = new Elo(numeroAInserir, 0, null, null);
 					n += 1;
 					break;
 				}
 			}
 		}
-		//caso a lista esteja vazia ele adiciona o elemento na primeira posição da lista e adiciona um valor à 'n' também
+		/*caso a lista esteja vazia ele adiciona o elemento na primeira posição da lista e adiciona um valor à 'n' também
+		 * e passamos um contador zerado pois o elo está sendo criado agora*/
 		else
 		{
 			prim = new Elo(numeroAInserir, 0, null, null);
