@@ -235,7 +235,22 @@ public class OrdenacaoTopologica
 	public boolean executa()
 	{
 		/* Preencher. */
-		
+		Elo p = prim, q; 
+		/*
+		 * linha questionável
+		 * 
+		 * prim = null;
+		 * */
+		while(p == null) 
+		{
+			q = p;
+			p = q.prox;
+			if(q.contador == 0) 
+			{
+				q.prox = prim;
+				prim = q;
+			}
+		}
 		return false;
 	}
 }
