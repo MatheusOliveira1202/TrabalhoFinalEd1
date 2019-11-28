@@ -103,12 +103,7 @@ public class OrdenacaoTopologica
 			e.printStackTrace();
 		}
 		
-		//depois que já criou a lista inteira, lê a lista e faz o debug de cada nó
-		Elo p;
-		for(p = prim; p != null; p = p.prox) 
-		{
-			debug(p);
-		}
+		executa();
 	}
 	
 	//faz a verificação do par
@@ -234,6 +229,13 @@ public class OrdenacaoTopologica
 	/* Método responsável por executar o algoritmo. */
 	public boolean executa()
 	{
+		//depois que já criou a lista inteira, lê a lista e faz o debug de cada nó
+		Elo d;
+		for(d = prim; d != null; d = d.prox) 
+		{
+			debug(d);
+		}
+		
 		/* Preencher. */
 		Elo p = prim, q; 
 		/*
