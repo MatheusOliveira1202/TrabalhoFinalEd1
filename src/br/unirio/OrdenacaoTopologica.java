@@ -230,20 +230,19 @@ public class OrdenacaoTopologica
 	public boolean executa()
 	{
 		//depois que já criou a lista inteira, lê a lista e faz o debug de cada nó
+		
 		Elo d;
 		for(d = prim; d != null; d = d.prox) 
 		{
 			debug(d);
 		}
 		
+		System.out.println("");
+		System.out.println("Ordenação Topológica");
+		
 		/* Preencher. */
-		Elo p = prim, q; 
-		/*
-		 * linha questionável
-		 * 
-		 * prim = null;
-		 * */
-		while(p == null) 
+		Elo p = prim, q; prim = null;
+		while(p != null) 
 		{
 			q = p;
 			p = q.prox;
@@ -252,7 +251,79 @@ public class OrdenacaoTopologica
 				q.prox = prim;
 				prim = q;
 			}
+			/*else 
+			{
+				System.out.println("Conjunto não é parcialmente ordenado.");
+				return false;
+			}*/
+		}
+		
+		for(q = prim; q != null; q = q.prox) 
+		{
+			System.out.print(q.chave + " ");
+			n--;
+			EloSuc t;
+			for(t = q.listaSuc; t != null; t = t.prox)
+			{
+				t.id.contador--;
+				if(t.id.contador == 0)
+				{
+					insereNalistaComZeroPredecessores(q, t.id);
+					removeDaListaDeSucessores(q.listaSuc, t);
+					removeDaListaComZeroPredecessores(q, q);
+				}
+			}
 		}
 		return false;
+	}
+	
+	private void removeDaListaDeSucessores(EloSuc listaDeSucessores, EloSuc aSerRemovido) 
+	{
+		EloSuc w;
+		for(w = listaDeSucessores; w != null; w = w.prox)
+		{
+			if(w == listaDeSucessores && w == aSerRemovido)
+			{
+				listaDeSucessores = w.prox;
+				//break;
+			}
+			if(w.prox == aSerRemovido)
+			{
+				w.prox = w.prox.prox;
+				break;
+			}
+		}
+	}
+	
+	private void removeDaListaComZeroPredecessores(Elo lista, Elo aSerRemovido) 
+	{
+		Elo g;
+		for(g = lista; g != null; g = g.prox)
+		{
+			if(g == lista && g == aSerRemovido)
+			{
+				lista = g.prox;
+				//break;
+			}
+			if(g.prox == aSerRemovido)
+			{
+				g.prox = g.prox.prox;
+				break;
+			}
+		}
+	}
+	
+	private void insereNalistaComZeroPredecessores(Elo eloASerLido, Elo eloAInserir) 
+	{
+		Elo s;
+		for(s = eloASerLido; s != null; s = s.prox)
+		{
+			if(s.prox == null)
+			{
+				s.prox = eloAInserir;
+				s.prox.prox = null;
+				break;
+			}
+		}
 	}
 }
