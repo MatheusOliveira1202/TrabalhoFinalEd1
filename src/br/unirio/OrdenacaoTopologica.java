@@ -310,7 +310,10 @@ public class OrdenacaoTopologica
 	
 	private void insereNalistaComZeroPredecessores(Elo eloASerLido, Elo eloAInserir) 
 	{
-		Elo s;
+		Elo s = eloASerLido.prox;
+		eloASerLido.prox = eloAInserir;
+		eloAInserir.prox = s;
+		/*Elo s;
 		for(s = eloASerLido; s != null; s = s.prox)
 		{
 			if(s.prox == null)
@@ -319,6 +322,6 @@ public class OrdenacaoTopologica
 				s.prox.prox = null;
 				break;
 			}
-		}
+		}*/
 	}
 }
