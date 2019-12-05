@@ -265,7 +265,7 @@ public class OrdenacaoTopologica
 					removeDaListaComZeroPredecessores(q, q);
 				}
 			}
-			if(q.prox == null)
+			if(q.prox == null && n == 0)
 			{
 				System.out.println();
 				return true;
