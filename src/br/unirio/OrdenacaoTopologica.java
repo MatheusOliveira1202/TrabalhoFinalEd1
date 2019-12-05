@@ -96,14 +96,11 @@ public class OrdenacaoTopologica
 				//faz a verificação dos elementos do par para ver se existem na lista e adicionarem na lista se ainda não existirem
 				verificaPar(x,y);
 			}
-			//imprimeLista();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		executa();
 	}
 	
 	//faz a verificação do par
@@ -251,11 +248,6 @@ public class OrdenacaoTopologica
 				q.prox = prim;
 				prim = q;
 			}
-			/*else 
-			{
-				System.out.println("Conjunto não é parcialmente ordenado.");
-				return false;
-			}*/
 		}
 		
 		for(q = prim; q != null; q = q.prox) 
@@ -273,6 +265,11 @@ public class OrdenacaoTopologica
 					removeDaListaComZeroPredecessores(q, q);
 				}
 			}
+			if(q.prox == null)
+			{
+				System.out.println();
+				return true;
+			}
 		}
 		return false;
 	}
@@ -285,7 +282,6 @@ public class OrdenacaoTopologica
 			if(w == listaDeSucessores && w == aSerRemovido)
 			{
 				listaDeSucessores = w.prox;
-				//break;
 			}
 			if(w.prox == aSerRemovido)
 			{
@@ -303,7 +299,6 @@ public class OrdenacaoTopologica
 			if(g == lista && g == aSerRemovido)
 			{
 				lista = g.prox;
-				//break;
 			}
 			if(g.prox == aSerRemovido)
 			{
